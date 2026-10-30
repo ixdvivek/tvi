@@ -1,0 +1,9 @@
+node_modules
+.next
+out
+.vercel
+.DS_Store
+# film songs stay local, never pushed
+/audio-local
+*.mp3
+!public/audio/ambience/*.mp3

@@ -1,0 +1,65 @@
+/* Holding page. Single light theme on purpose: it matches the white cassette shell. */
+:root {
+  --bg: #e3e7ea;
+  --shell: #ffffff;
+  --ink: #141414;
+  --muted: #5d646b;
+  --yellow: #ffc531;
+  --display: "Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+  --ml: "Manjari", "Noto Sans Malayalam", sans-serif;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font: 400 16px/1.55 var(--mono);
+  -webkit-font-smoothing: antialiased;
+}
+.page {
+  min-height: 100%;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  gap: 32px;
+  padding-block: max(24px, env(safe-area-inset-top)) max(24px, env(safe-area-inset-bottom));
+  padding-left: max(20px, env(safe-area-inset-left));
+  padding-right: max(20px, env(safe-area-inset-right));
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.top, .foot {
+  display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+  font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted);
+}
+.top b { color: var(--ink); font-weight: 500; }
+.main { display: grid; align-content: center; gap: 28px; }
+
+.deck { display: flex; align-items: center; gap: 14px; }
+.reel { width: 56px; height: 56px; }
+.hub { transform-origin: 28px 28px; animation: spin 2.4s linear infinite; }
+.tape { width: 72px; height: 12px; border-radius: 6px; background: var(--ink); position: relative; overflow: hidden; }
+.tape::after {
+  content: ""; position: absolute; inset: 0; width: 40%; border-radius: 6px; background: var(--yellow);
+  animation: rewind 6s ease-in-out infinite;
+}
+@keyframes spin { to { transform: rotate(-360deg); } }
+@keyframes rewind { 0% { width: 92%; } 85% { width: 6%; } 100% { width: 92%; } }
+
+h1 {
+  font: 800 clamp(48px, 11vw, 144px)/.9 var(--display);
+  letter-spacing: -.04em; margin: 0; text-wrap: balance; max-width: 11ch;
+}
+h1 span { background: linear-gradient(transparent 62%, var(--yellow) 62%, var(--yellow) 90%, transparent 90%); }
+.sub { font: 400 clamp(16px, 1.6vw, 19px)/1.55 var(--mono); color: var(--muted); max-width: 52ch; margin: 0; }
+.sub b { color: var(--ink); font-weight: 500; }
+.ml { font: 400 clamp(17px, 2vw, 22px)/1.5 var(--ml); margin: 0; }
+.ml small { display: block; font: 400 12px/1.4 var(--mono); color: var(--muted); letter-spacing: .02em; }
+
+.foot span:last-child { text-align: right; }
+
+@media (prefers-reduced-motion: reduce) {
+  .hub, .tape::after { animation: none; }
+}
